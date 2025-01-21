@@ -1,45 +1,55 @@
+package jp.ac.uryukyu.ie.e245720;
 import java.util.Random;
-import java.util.Scanner;
 
-public class Janken {
-    public static void main(String[] args) {
-        String[] options = {"グー", "チョキ", "パー"};
-        Random random = new Random();
-        Scanner scanner = new Scanner(System.in);
+public class  Janken {
+        private String[] options = {"グー", "チョキ", "パー"};
+        private String[] directions = {"上", "下", "右", "左"};
+        private String Jankenresult;
 
-        System.out.println("じゃんけんを始めます！");
-        System.out.println("0: グー, 1: チョキ, 2: パー");
-
-        while (true) {
-            try {
-                System.out.print("あなたの選択: ");
-                int playerChoice = scanner.nextInt();
-
-                if (playerChoice < 0 || playerChoice > 2) {
-                    System.out.println("0, 1, 2の中から選んでください。");
-                    continue;
-                }
-
-                int computerChoice = random.nextInt(3);
-
-                System.out.println("あなたの手: " + options[playerChoice]);
-                System.out.println("コンピュータの手: " + options[computerChoice]);
-
-                if (playerChoice == computerChoice) {
-                    System.out.println("あいこです！もう一度。\n");
-                } else if ((playerChoice - computerChoice + 3) % 3 == 1) {
-                    System.out.println("あなたの勝ちです！");
-                    break;
-                } else {
-                    System.out.println("あなたの負けです。");
-                    break;
-                }
-            } catch (Exception e) {
-                System.out.println("数字を入力してください。");
-                scanner.next(); // 入力のリセット
+        public String playJanken(int playerChoice){
+            if (playerChoice < 0 || playerChoice > 2){
+                throw new IllegalArgumentException("選択は0から2の間でなければなりません。");
             }
+
+            Random random = new Random();
+                int computerChoice = random.nextInt(3);
+                System.out.println("あなた:" + options[playerChoice]);
+                System.out.println("橋本環奈:" + options[computerChoice]);
+
+                if (playerChoice == computerChoice){
+                    Jankenresult = "あいこ！もう一回！";
+                } else if ((playerChoice - computerChoice + 3) % 3 == 1){
+                    Jankenresult = "勝ち";
+                } else{
+                    Jankenresult = "負け";
+                }
+            
+        System.out.println("じゃんけんの結果: " + Jankenresult);
+        return Jankenresult;
+            
+        
         }
 
-        scanner.close();
+        public boolean playAttimuiteHoi(boolean playerWonJanken, int playerDirection) {
+            Random random = new Random();
+            int computerDirection = random.nextInt(4);
+
+            System.out.println("ホイ！！！！！！！！");
+            System.out.println("あなた: " + directions[playerDirection]);
+            System.out.println("橋本環奈: " + directions[computerDirection]);
+    
+            if (playerDirection == computerDirection) {
+                if (playerWonJanken) {
+                    System.out.println("あなたの勝ち");
+                    System.out.println("ひとつだけ言うこときいてあげる(^_^)");
+                } else {
+                    System.out.println("橋本環奈の勝ち");
+                    System.out.println("可愛さもじゃんけんも私の勝ち〜！");
+                }
+                return true; // 勝敗確定
+            } else {
+                System.out.println("もう一回！！！！！！！！！");
+                return false; 
+            }
+        }
     }
-}

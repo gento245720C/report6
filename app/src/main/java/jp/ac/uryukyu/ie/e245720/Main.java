@@ -8,13 +8,11 @@ public class Main {
         Attimuitehoi attimuitehoi = new Attimuitehoi();
         Player player = new Player();
         boolean gameOver = false;
-
         System.out.println("私は橋本環奈！！\n じゃんけんで勝負よ！！");
 
         while (!gameOver){
             int playerChoice;
             String result;
-
             while(true){
                 playerChoice = player.PlayerHand();
                 result = janken.playJanken(playerChoice);
@@ -29,9 +27,9 @@ public class Main {
                 System.out.println("あっち向いて....");
                 int playerDirection = player.PlayerDirection();
                 int computerDirection = attimuitehoi.computerDirection();
-
-                System.out.println("あなた" + attimuitehoi.DirectionName(playerDirection));
-                System.out.println("橋本環奈" + attimuitehoi.DirectionName(computerDirection));
+                System.out.println("ホイ！！！！！！！！");
+                System.out.println("あなた: " + attimuitehoi.DirectionName(playerDirection));
+                System.out.println("橋本環奈: " + attimuitehoi.DirectionName(computerDirection));
 
                 if (attimuitehoi.isMatch(playerDirection, computerDirection)) {
                     if (playerWonJanken) {

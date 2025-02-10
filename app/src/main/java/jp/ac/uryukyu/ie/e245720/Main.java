@@ -5,52 +5,47 @@ public class Main {
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
         Janken janken = new Janken();
+        Attimuitehoi attimuitehoi = new Attimuitehoi();
+        Player player = new Player();
         boolean gameOver = false;
 
-        System.out.println("私は橋本環奈！！");
-        System.out.println("じゃんけんで勝負よ！！");
-
+        System.out.println("私は橋本環奈！！\n じゃんけんで勝負よ！！");
 
         while (!gameOver){
-            System.out.println("0: グー");
-            System.out.println("1: チョキ");
-            System.out.println("2:パー");
             int playerChoice;
+            String result;
+
             while(true){
-            try{
-                playerChoice = Integer.parseInt(scanner.nextLine());
-                if (playerChoice >= 0 && playerChoice <= 2) break;
-                    else System.out.println(" 0, 1, 2の中から選んで！");
-                } catch (NumberFormatException e) {
-                    System.out.println("変なことをしないで！");
+                playerChoice = player.PlayerHand();
+                result = janken.playJanken(playerChoice);
+                if (!result.equals( "あいこ！もう一回！")){
+                    break;
+                }
+                System.out.println("もう一回！！！");
+ 
+        }
+                boolean playerWonJanken = result.equals("勝ち");
+
+                System.out.println("あっち向いて....");
+                int playerDirection = player.PlayerDirection();
+                int computerDirection = attimuitehoi.computerDirection();
+
+                System.out.println("あなた" + attimuitehoi.DirectionName(playerDirection));
+                System.out.println("橋本環奈" + attimuitehoi.DirectionName(computerDirection));
+
+                if (attimuitehoi.isMatch(playerDirection, computerDirection)) {
+                    if (playerWonJanken) {
+                        System.out.println("あなたの勝ち！");
+                        System.out.println("ひとつだけ言うこと聞いてあげる(^_^)");
+                    } else {
+                        System.out.println("橋本環奈の勝ち！");
+                        System.out.println("可愛さもじゃんけんも私の勝ち〜！");
+                    }
+                    gameOver = true; // 勝敗が決まったらゲーム終了
+                } else {
+                    System.out.println("もう一回！！！！！！！！！");
                 }
             }
-
-
-                String result = janken.playJanken(playerChoice);
-                if (!result.equals("あいこ")){
-                    boolean playerWonJanken = result.equals("勝ち");
-
-                    System.out.println("あっち向いて... ");
-                    System.out.println("0: 上");
-                    System.out.println("1: 下");
-                    System.out.println("2: 右");
-                    System.out.println("3: 左");
-                    int playerDirection;
-                    while(true){
-                        try{
-                            playerDirection = Integer.parseInt(scanner.nextLine());
-                            if (playerDirection >= 0 && playerDirection <= 3) break;
-                            else System.out.println("0, 1, 2, 3の中から選んで！");
-                        }catch (NumberFormatException e){
-                            System.out.println("変なことしないで！");
-                    }
-                }
-
-            gameOver = janken.playAttimuiteHoi(playerWonJanken, playerDirection);
+            scanner.close();
         }
     }
-        scanner.close();
-    }
-}
-
